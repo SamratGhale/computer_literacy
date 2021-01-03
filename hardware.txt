@@ -1,0 +1,27 @@
+Processor's programming model 
+-->Ececutes binary bits around 8 bits to 256 bytes on the high end
+
+Instructions
+-->A sequence of bits understood by the processer to signal a certain action
+->Copy Bytes (Mostly from the memory)
+->Arthemetic
+->Bit logic
+->jump(Makeing decisions)
+
+
+Registes
+-->A small memory area in a processer
+  ->Keeps tracks of the memory address of the next instruction
+  ->Stores some data-> for adding
+data->memory->registers->processer->registers->memory
+
+
+
+ISA (instruction ser artictures)
+-->Instructions that the processor can understand
+-->x86(IA-32,x86-64)
+-->ARM
+-->MIPS
+-->Motorola 68k
+
+processer catch (Between memory and processer) also called SRAM(static ram)

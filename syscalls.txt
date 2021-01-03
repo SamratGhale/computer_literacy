@@ -1,0 +1,42 @@
+PSIX (Portable Operating System Interface  for Linux)
+SUS (Single Unix Specification)
+
+"From a perspective of a programmer the primary thing which defines a operating system is what systemcalls it makes available."
+
+Syscall --> Function in the operating system code which programs can incvoke using a special instructions.
+
+Each program is confined to run on it's own part of the memory so it cannot access the code of the operating system to invoe the system callfunction.
+
+You access the system call by specifiying the number of the system call you wanna invoke and the cpu looks up the address which corresponds to that number in the table.
+
+The kernel code for the system calls and the table for the system call themselves are placed inside the address space of the each address.
+
+Usually it is kept on top of the address space and the stack starts emmideatly below it.
+
+When a systemcall is called it uses the stack of the process to place stackframe for that system call just like any other function.
+
+The purpose of all this is that it allows context of the process which invokes them. That avoids the context switch, meaning we don't have to swap out the memorytable of the current processes in memory till the duration.
+Also allows the system call to be naturally interrupted.
+
+While invoking most system calls the process gets in the blocked state
+e.g reading from the file.
+
+Used for following purposes:
+processes
+files
+
+signals -> notification for some event or some processes sent by the operating system to some process
+
+
+inter-process communication
+also->networking sockets
+
+terminals
+threads -> process on default has one theread of execution
+you can split the process into multiple thread which has it's own code pointer and stack
+also-> threads are like seperate processes which run independently and scehuled independently but they share the same address space so the data on the heap can be written and read by any thread in the process. 
+
+i/o devices
+UNIX treats i/o devices like files i.e use same system calls
+
+System calls are envoked directly in assembly and is wrapped by c

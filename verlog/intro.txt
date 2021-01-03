@@ -1,0 +1,40 @@
+What is Verilog?
+- IEEE industry standard hardware Description Language(HDL)- used to describe a digital system.
+- Use in both hardware simulation and sythesis
+
+HDL
+- Hardware defination language
+- A text based programming language that is used to model a piece of hardware.
+
+While modeling in HDL you can use two types of modeling:
+
+Behaviour Modeling
+- A component is described by it's input output response
+- Only the functionality of the circuit, no structure
+- Systhesis tools creates correst logic
+
+inputs ->
+if (shift_left) begin
+  out[0]< = 5 0;
+  for (j = 1; j< 8; j=j+1)
+    out[j] < = 5 out[j-1];
+end
+
+
+Structural Modeling
+- A component is described by interconnecting lower-level components/primitives
+- Functionality and structure of the circuits
+- Call out the specific hardware
+
+Register Transfer Level (RTL)
+- A type of behaviour modeling, for the purpose of synthesis
+- Hardware is implied or infered
+- Synthesizable
+
+Systhesis:
+- Translating the HDL to circuit and then optimizing the represented circuit, for exaple lookup table and flip flop of fpga
+
+RTL Synthesis:
+- Translating a RTL model of hardware into an optimized technology specific gate level implementation
+
+

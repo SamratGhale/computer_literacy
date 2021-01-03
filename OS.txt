@@ -1,0 +1,75 @@
+Operating system (manages the hardware and running program)
+
+-->Load and manage processes (a running program)
+-->Provide interfaces to hardware via system calls
+-->Provide a filesystem
+-->Provide a basic user interfaces
+
+
+Device-Driver 
+-->OS plug-in module for controlling a particular device
+
+hardware->driver->software
+
+Primary purpose of the modern operating system is to allow for multiple processes to run simultaneously
+
+-->Each cpu core can processes a single processes at a time
+-->Answer--> Alternate the processes with running os code
+-->A schedular runs after each process to decide which process after it
+-->Uses interupt handler
+
+pre-empetive multitasking
+
+1. CPU recives interrupt
+2. interrupt stores program counter
+3. interupt invokes handler
+4. handler saves rest of the state of the CPU for the process
+5. handler does it's business
+6. handler invokes the scheduler
+7. scheduler selects the process to run
+8. scheduler restores state of the CPU for the process
+9. scheduler jumps execution to that process
+
+Clock send interupts on the regular basis
+schedular uses round robin algorithms
+
+Processes also shares the system memory
+Each process access it's own portion of the memory (Enforced by hardware)
+
+Syscall(system calls) -->Means by which the processes request to the operating systems
+Each os has sys call table
+Previlise level
+
+Process memory 
+Each process uses memory for a 
+-->text(code) 
+-->call stack (local variable) uses stack pointer
+infilite loop and recursive function makes stack overflow
+
+-->heap (everything else)
+heap allocated with system calls malloc and deallocate
+Might create memory leak
+
+Memory address might not directly refer to the memory 
+
+Swap--> unwanted memory kept in swap and when requested to access the swap is sent to memory
+
+Lifecycle of the process
+->created
+->waiting
+->running
+->terminated
+
+->blocked->process is waiting for some external event in the system like reading files
+
+Os provide a abstraction to the storage device called a file system
+
+Files have id unique to the partion
+
+IPC(Interprocess Communication)
+
+files
+pipes
+sockets
+signals
+shared memory

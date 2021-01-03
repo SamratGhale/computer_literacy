@@ -1,0 +1,184 @@
+common syscalls for files
+
+open -> open/create a file and return a file descriptor
+close -> release file descriptor
+read -> copy bytes from file to memeory
+write -> copy bytes form memory to a file
+
+the syscall to write will copy the bytes form memory to write buffer in the os and from there the operating system will wirte the data form the buffer to the actual storage device
+
+f = open('/alice/tim')
+f-> file descriptor
+write(f, 'bla bla')
+write(f, 'bla bla bla')
+close(f)
+
+as the operating system handles the syscalls it is entirely possible for the process to terminate while the file has been written
+problematic for program which needs high certainaty
+like database
+by default we don't get such asscurnce
+
+same process when read syscall
+for performance reason
+
+f = open('/alice/tim')
+data = read(f)
+read returns the data
+close(f)
+
+how much data will the call to read will return
+it's left upto read itself
+we can specify the max amount of data to return
+
+
+maker -> numeric index keeping track of where your next read or next wright is going to take place
+
+              marker
+                |
+_________________________________
+  |                         |
+byte 0                  last byte
+
+lseek -> start with marker more than one
+
+descriptoer 
+number in the process used to uniquely identify an underlined data struture which is called a description 
+
+description 
+represents open file which contains the marker
+
+when descripter gets copied two descripter points to the same description
+
+open returns new file descriptior with new underlying file description
+
+
+
+f = open('/alice/ tim')
+f2 = open('/alice/ tim')
+write(f, 'bla bla')
+data = read(f2)
+
+descriptor -----> description ----------> buffer ---------> file on disk
+there is only one buffer no matter how many processes on a same file
+write writes on the buffer and the read reads form the same buffer
+file buffer on different processes are written with no coordination
+
+UMASK (get/set default permission for new files/directories)
+
+oldmask = umask(newmask)
+f = open('/alice/tim')
+write(f, 'bla bla')
+
+CHMOD ('change mode': set permissions of an existing file/directories)
+chmod('/alice/tim', mask)
+
+CHOWN ('change owner': set owner  of an existing file/directories)
+chown('/alice/tim',user,group)
+
+
+each file and directory in a partion is known by a unique inode number
+
+root inode number has inode of 2
+inode 0 indicates the absesnce of files, like a null pointer
+inode 1 indicates the list of the bad sections of the userspace
+
+link -> add directory entry
+unlink -> remove directory entry
+
+GETDENTS -> get directory entries
+f = open('/alice')
+entries = getdents(f)
+while len(entries) != 0:
+    print(entries)
+    entries = getdents(f)
+close(f)
+
+in unix each partiton is mounted to a directory
+one partition is mounted in / aka root directory
+we can mount partition on /
+fash drives has their own root(/) partition
+
+mount -> attach partition to the unified file system
+umount -> unmount : detach patition from the unifies file system
+
+mount(partition, '/alice/tim')
+umount('/alice/tim')
+
+chdir -> change cwd, the current working directory
+
+other things which are also considered to be called so called 'files'
+
+1. regular files
+2. directory
+3. symbolic links -> link pointing to a file or folder (shortcut files in windows)
+4. character device link
+5. block device file
+6. pipe 
+7. socket
+
+symlink -> create a symbolic link
+
+symlink('alicwe/tim', 'jill/ken')
+f = open('jill/ken')
+
+cpu --read/write--> device/registors
+
+device is not a file but when we read from the device we are getting data from the device and when we are writing we are writeing file
+
+block devices -> devices with large storage area(hard drive)
+
+character device -> data flows in and data flows out but dosent store much
+
+one buffer per block
+if there is some file in the buffer then the buffer is called a dirty buffer
+
+block device file -> the file which represents the whole storage of the block device 
+such that the fisrt block starts with the first byte of the device and the last byte represnets the lsat block of the device
+
+reading and writing from the bytes itself
+that needs extra information
+
+DATABASES
+
+block device buffers backed by the storage
+character device buffers not backed by storage
+
+/dev directory of the device files
+bf = open('/dev/sda1')
+
+lp -> line printer
+cf = open('/dev/lp0')
+
+character device has no concept of file marker
+
+pseudo-device files
+/dev/zero returns zeroed bytes
+/dev/random returns random data
+/dev/null discards data; returns no bytes at all
+
+
+pipes -> one process sending data to another
+make another pipe to send data in opposite direction
+
+mknod -> make node : create a regular file, device file, or named pipe
+
+pipe -> creates a new, anonymous pipe and returns two file descriptors
+fs = pipe()
+f1 = fs[0]
+f2 = fs[1]
+for communictation on both ways
+only used in related processes
+
+for unrelated processes we need named pipe
+
+signals -> software inturupt 
+send by the operating system to a process
+
+the receiving process
+1. performs a default action
+2. or invokes a handler function
+3. or blocks it 
+4. or ignores it
+
+
+

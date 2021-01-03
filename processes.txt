@@ -1,0 +1,138 @@
+for every process currently in the system the operating system keeps a data structure that keeps track of the all the things associated with that process
+
+1. address space - the memory table which is loaded when the process is running
+2. user ids
+3. file desctiptors
+4. environment - small amount of data associeted with the process
+5. current and root directory
+
+address space:
+
+--------------------------------
+kernel code
+--------------------------------
+stack
+--------------------------------
+heap
+--------------------------------
+uninitilized data
+--------------------------------
+initilized data
+--------------------------------
+code < a.k.a. the text
+--------------------------------
+
+mmap(memory map)<- to allocate the memory in a process
+munmap(memory unmap)<- to disallocate the memory from a process
+
+address = mmap(5000)
+#do stuffs with the memeory at the address
+munmap(address)
+
+garbage collection -> the interpretor alocates and dealocates   the memory
+
+To create new process in unix
+- copy the process (copy it's intire address space and all the other things)
+- done using fork system call
+
+only difference between child and parent is that the fork systemcall returns 1 for parent and 0 for child
+if fork() == 0:
+  // new (child) process
+else:
+  // original (parent) process
+
+exec - repace the current program in the process with a new program
+new address space is created
+
+if fork() == 0:
+  // new (child) process
+  exec('/games/pong')
+else:
+  // original (parent) process
+retains environments and file desctiptors
+
+when the unix system starts there is a first process called init process and from there all of the process decend
+-each process is know by a unique id number
+-process id can be renewed
+
+_exit - system call to exit the system
+takes argument (exit code)
+0-terminated normally
+
+wait - system call to block the process child process terminates
+
+pid = fork()
+if pid == 0:
+  //new (child) process
+  exec('/games/pong')
+else:
+  //orginal (parent) process
+  code = wait(pid)
+
+wait returns a exit code
+
+process environment 
+- a chunk of data with stuffs in it
+
+TERM = xterm
+SHELL = /bin/bash
+USER = samrat
+MAIL = /var/mail/ted
+PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+PWD = /home/ted
+EDITOR = vim
+
+the environment of the process gets preserved across exec
+
+super user gets to do what it wants
+
+real id: the owning user 
+effective id: determines privileges
+saved id: set by exec to match effective id
+
+each file and directory is owned by a single user
+
+exec -> sets effective and saved ids when binary file has setuid bit
+seteuid -> set effective user id
+setuid -> sets real effective an saved user ids
+
+non-superuser can only directly set effective id to match the real or saved id
+
+whien unix starts
+pid 1(init), user 0     
+      |                  \
+      |                  | fork, exec
+      |                  /
+      |                 /
+pid 2(login), user 0
+      |
+      |                  \
+      |                  | fork,setuid, exec
+      |                  /
+      |                 /
+pid 3(shell), user 1780
+
+
+
+user account is just a arbitary number representing some set of privilage
+
+user groups (/etc/groups)
+1. user may belong to multiple groups but has one "primary" group
+2. each file and directory is owned by one group
+3. each process has a real,effective and saved group id
+4. binary files have setgid bit
+5. setegid and setgid
+
+almost a legacy feature when unix was used as multi user system
+
+associated with each file and directory
+
+rwx      rwx      rwx
+usr      group    other
+
+r -> read
+w -> write
+x -> execute
+either on or of
+
+

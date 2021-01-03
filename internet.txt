@@ -1,0 +1,57 @@
+a network 
+-->Multiple computers connected to each other
+-->Networks of network
+-->connected by router
+
+the internet
+-->Connected with internet protocol (IP)
+-->Data sent in packets
+-->Each host and router has a unique 32 bit address eg 233.75.19.198
+
+
+-->Different paths for the packets 
+-->The senders pays
+
+-->Amazon's internet service provider
+-->Backbone network
+-->your internet service provider
+
+The goal of the computer network is to send and recive packets
+The real goal is the allow the program running in the network to send and recive the packets
+
+
+Server->listens for requests and responds
+Client->program the makes requests of other program
+
+
+DNS (Domain Name System)
+--> A system resolving names to IP addresses
+--> Top-Level domains: com,net,org,edu,mil,gov,ca,de,etc.
+-->Each controlled by a designated authority
+-->Each top-level authorities let people lease subdomains:
+-->google.com, yahoo.com,wikipedia.org
+-->Google pays money to the com
+
+URL (Universal Resource Locater)
+schema://host/path
+-->Not necessaraly a file path
+
+Web browser
+-->Displays web pages
+-->Uses https protocal inside IP protocal
+
+Search Engine
+--> A service that indexes every page on the web
+
+Email
+-->Not the web
+-->SMTP(Simple mail Transfor Protocal)
+-->POP(Post Office Protocal)
+-->IMAP(Internet Messege Access Protocal)
+-->Samrat@gmail.com --> Samrat's mail server -->Bishat's mail server --> Bishant@gomail.com
+
+VOIP(Voice over internet protocal)
+
+
+
+

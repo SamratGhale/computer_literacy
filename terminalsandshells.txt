@@ -1,0 +1,14 @@
+in unix system a process may communicate with the terminal thru a file representing that terminal called a terminal character device file.
+-> putting data in the output buffer  of the device file which then is gonna be sent to the terminal device associated to that character device file
+
+when the user at the keyword types something in the terminal the data in the terminal gets send to the computer and the operating system will take the data and put it int the input buffer to the associated character device file and the process then my read from the character device file to get that data
+
+terminal is a really dumb device
+the text is comming from the terminal comming form the attach computer 
+
+in unix when a process is created it inherets form the parent process with the same file descriptor
+
+0->stdin (file descriptor open for reading a terminal device file)
+1->stout (file descriptor open for writing a terminal device file)
+
+x window system server (xorg)
